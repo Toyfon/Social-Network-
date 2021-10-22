@@ -1,6 +1,6 @@
 import s from './Friends.module.css'
 import {Friend} from "./Friend/Friend";
-import {FriendsBarType} from "../../../Redux/State";
+import {FriendsBarType} from "../../../Redux/friendsBar-reducer";
 import React from "react";
 
 

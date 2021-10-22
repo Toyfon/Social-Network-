@@ -1,8 +1,9 @@
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import React from "react";
-import {ActionsType ,PostsType, } from "../../../Redux/State";
-import {addPostCreator, updateNewPostTextCreator} from "../../../Redux/profilePage-reducer";
+
+import {addPostAC, PostsType, updateNewPostTextAC} from "../../../Redux/profilePage-reducer";
+import {AllACType} from "../../../Redux/redux-store";
 
 
 
@@ -10,7 +11,7 @@ import {addPostCreator, updateNewPostTextCreator} from "../../../Redux/profilePa
 type MyPostsPropsType = {
     posts: Array<PostsType>
     newPostText: string
-    dispatch: (action: ActionsType  ) => void
+    dispatch: (action: AllACType  ) => void
 }
 
 
@@ -25,12 +26,12 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let addPost = () => {
-        props.dispatch (addPostCreator())
+        props.dispatch (addPostAC())
     }
 
     let onPostChange = () => {
         let text = newPostElement.current?.value;
-        props.dispatch(updateNewPostTextCreator(text!))
+        props.dispatch(updateNewPostTextAC(text!))
     }
 
 
