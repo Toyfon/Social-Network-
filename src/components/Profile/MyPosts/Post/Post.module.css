@@ -1,0 +1,14 @@
+.item {
+    color: black;
+    font-size: small;
+}
+
+.item img {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    image-rendering: high-quality;
+}
+.text{
+    color: rgba(255,4,0,0.89);
+}
