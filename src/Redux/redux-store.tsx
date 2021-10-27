@@ -1,16 +1,15 @@
 import {combineReducers, createStore, Store} from "redux";
-import profileReducer, {addPostAC, updateNewPostTextAC} from "./profilePage-reducer";
-import dialogsReducer, {sendMessageCreator, updateNewMassageBodyCreator} from "./dialogsPage-reducer";
+import profileReducer from "./profilePage-reducer";
+import dialogsReducer from "./dialogsPage-reducer";
 import friendsBarReducer from "./friendsBar-reducer";
 
 
-
 export type AppStateType = ReturnType <typeof appState>
-export type AllACType =
+/*export type AllACType =
     ReturnType <typeof addPostAC> |
     ReturnType <typeof updateNewPostTextAC> |
     ReturnType <typeof updateNewMassageBodyCreator> |
-    ReturnType <typeof sendMessageCreator>
+    ReturnType <typeof sendMessageCreator>*/
 
 
 
@@ -20,6 +19,6 @@ let appState = combineReducers({
     friendsBar:friendsBarReducer
 });
 
-let store:Store<AppStateType, AllACType > = createStore(appState);
+let store:Store<AppStateType,any> = createStore(appState);
 
 export default store

@@ -2,8 +2,8 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import React from "react";
 
-import {addPostAC, PostsType, updateNewPostTextAC} from "../../../Redux/profilePage-reducer";
-import {AllACType} from "../../../Redux/redux-store";
+import { PostsType } from "../../../Redux/profilePage-reducer";
+
 
 
 
@@ -11,14 +11,15 @@ import {AllACType} from "../../../Redux/redux-store";
 type MyPostsPropsType = {
     posts: Array<PostsType>
     newPostText: string
-    dispatch: (action: AllACType  ) => void
+    updateNewPostText:(text:string) => void
+    addPost:()=> void
 }
 
 
 
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-
+    debugger
     let postElement = props.posts.map((p) =>
         <Post message={p.message} likesCount={p.likesCount}/>)
 
@@ -26,12 +27,12 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let addPost = () => {
-        props.dispatch (addPostAC())
+        props.addPost()
     }
 
     let onPostChange = () => {
         let text = newPostElement.current?.value;
-        props.dispatch(updateNewPostTextAC(text!))
+        props.updateNewPostText (text!)
     }
 
 

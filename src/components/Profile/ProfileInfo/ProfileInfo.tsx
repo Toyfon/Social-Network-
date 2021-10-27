@@ -9,7 +9,7 @@ const ProfileInfo = () => {
                     src='https://source.unsplash.com/1600x900/?nature,water' alt='image'/>
             </div>
             <div className={s.descriptionBlock}>
-                ava + desсription
+                ava + description
             </div>
         </div>
     )

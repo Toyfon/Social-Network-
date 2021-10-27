@@ -10,23 +10,23 @@ export type PostsType = {
     likesCount: number
 }
 
-export type InitialStateType = {
+export type InitialProfilePageStateType = {
     posts: Array<PostsType>
     newPostText: string
 }
 
 
-let initialState: InitialStateType = {
+let initialState: InitialProfilePageStateType = {
     posts: [
         {id: 1, message: 'HI! My name is Vova', likesCount: 11},
         {id: 2, message: 'I\'m waiting for you', likesCount: 12},
         {id: 3, message: 'Good luck and have fun!', likesCount: 35},
-        {id: 4, message: 'Hey you!', likesCount: 24}
+        {id: 4, message: 'Hey you!', likesCount: 24},
     ],
         newPostText: ' '
 };
 
-const profileReducer = (state= initialState, action: ActionsType): InitialStateType=> {
+const profileReducer = (state= initialState, action: ActionsType): InitialProfilePageStateType=> {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
@@ -34,15 +34,14 @@ const profileReducer = (state= initialState, action: ActionsType): InitialStateT
                 message: state.newPostText,
                 likesCount: 0
             };
-            state.posts.push(newPost)
             state.newPostText = ' ';
             return {...state,
                 newPostText:'',
-                posts: [...state.posts,newPost]
+                posts: [newPost,...state.posts]
             }
         case UPDATE_NEW_POST_TEXT:
             state.newPostText = action.newText;
-            return state;
+            return {...state}
         default:
             return state
     }
