@@ -11,13 +11,11 @@ import React from "react";
 import {Friends} from "./components/Navbar/Friends/Friends";
 import {AppStateType} from "./Redux/redux-store";
 import {Store} from "redux";
-import {ActionsType} from "./Redux/dialogsPage-reducer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 type AppType = {
     store: Store<AppStateType, any>
-    dispatch: (action: ActionsType) => void
 }
 
 const App: React.FC<AppType> = (props) => {
