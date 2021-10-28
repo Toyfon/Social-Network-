@@ -5,12 +5,6 @@ import friendsBarReducer from "./friendsBar-reducer";
 
 
 export type AppStateType = ReturnType <typeof appState>
-/*export type AllACType =
-    ReturnType <typeof addPostAC> |
-    ReturnType <typeof updateNewPostTextAC> |
-    ReturnType <typeof updateNewMassageBodyCreator> |
-    ReturnType <typeof sendMessageCreator>*/
-
 
 
 let appState = combineReducers({
