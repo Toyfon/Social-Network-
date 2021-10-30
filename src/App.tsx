@@ -8,6 +8,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import React from "react";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/usersContainer";
 
 
 
@@ -25,7 +26,9 @@ const App = () => {
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
+                <Route path='/settings' render={() => <Settings/>}/>
               {/*  <Route path='/friends' render={() => <Friends friends={props.store.getState().friendsBar.friends}/>}/>*/}
+                <Route path='/users' render={() => <UsersContainer/>}/>
 
             </div>
         </div>

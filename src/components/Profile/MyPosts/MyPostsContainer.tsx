@@ -23,7 +23,6 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         },
         addPost: () => {
             dispatch(addPostAC())
-
         }
     }
 }
