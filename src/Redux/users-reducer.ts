@@ -8,14 +8,8 @@ type LocationType ={
 }
 
 
-export type UserType = {
-    id: number
-    followed:boolean
-    fullName: string
-    status:string
-    location: LocationType
-    photoUrl:string
-}
+export type UserType = any
+
 
 export type InitialUsersPageStateType = {
     users:UserType[]
