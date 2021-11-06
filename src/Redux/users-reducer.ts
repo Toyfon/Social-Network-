@@ -2,10 +2,6 @@ const FOLLOW = "FOLLOW";
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
 
-type LocationType ={
-    city:string
-    country:string
-}
 
 
 export type UserType = any
@@ -46,7 +42,6 @@ const usersReducer = (state = initialState, action: ActionsType): InitialUsersPa
         case SET_USERS: {
             return {...state, users: [...state.users, ...action.users]}
         }
-
         default:
             return state
     }
@@ -56,7 +51,7 @@ export type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unfoll
 
 export const followAC = (userId:number) => ({type: FOLLOW, userId} as const)
 export const unfollowAC = (userId:number) => ({type: UNFOLLOW, userId} as const)
-export const setUsersAC = (users:UserType[]) => ({type: SET_USERS, users} as const)
+export const setUsersAC = (users:[]) => ({type: SET_USERS, users} as const)
 
 export default usersReducer;
 

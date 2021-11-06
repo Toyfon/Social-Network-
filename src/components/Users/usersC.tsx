@@ -15,21 +15,21 @@ type UsersType = {
 
 class Users extends React.Component<UsersType> {
 
-    constructor(props: UsersType) {
-        super(props);
-        if (this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items)
-            })
+        componentDidMount() { //специальный метод классовой компоненты, в который можно передавать side-effect
+            axios.get("https://social-network.samuraijs.com/api/1.0/users") //Ajax запрос на сервер (side-effect)
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                })
         }
-    }
+
+
 
     render() {
         return <div>
             {this.props.users.map(u => <div key={u.id}>
             <span>
                 <div className={s.avatar}>
-                <img src={u.photos.small !== null ? u.photos.small : userPhoto}/>
+                <img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="photo"/>
                 </div>
                 <div>
                     {u.followed ? <button onClick={() => {
