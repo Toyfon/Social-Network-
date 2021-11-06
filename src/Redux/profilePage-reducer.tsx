@@ -22,6 +22,7 @@ let initialState: InitialProfilePageStateType = {
 };
 
 const profileReducer = (state = initialState, action: ActionsType): InitialProfilePageStateType => {
+
     switch (action.type) {
         case ADD_POST:
             let newPost = {

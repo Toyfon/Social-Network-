@@ -11,9 +11,6 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/usersContainer";
 
 
-
-
-
 const App = () => {
 
     return (
@@ -27,7 +24,7 @@ const App = () => {
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
-              {/*  <Route path='/friends' render={() => <Friends friends={props.store.getState().friendsBar.friends}/>}/>*/}
+                {/*  <Route path='/friends' render={() => <Friends friends={props.store.getState().friendsBar.friends}/>}/>*/}
                 <Route path='/users' render={() => <UsersContainer/>}/>
 
             </div>
