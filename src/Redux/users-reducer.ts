@@ -1,7 +1,8 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
-
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USER_COUNT = 'SET_TOTAL_USER_COUNT'
 
 
 export type UserType = any
@@ -9,12 +10,18 @@ export type UserType = any
 
 export type InitialUsersPageStateType = {
     users:UserType[]
+    pageSize:number
+    totalUsersCount: number
+    currentPage:number
 }
 
 
 
 let initialState:InitialUsersPageStateType = {
     users: [],
+    pageSize: 10,
+    totalUsersCount: 100,
+    currentPage: 1
 };
 
 const usersReducer = (state = initialState, action: ActionsType): InitialUsersPageStateType => {
@@ -40,18 +47,32 @@ const usersReducer = (state = initialState, action: ActionsType): InitialUsersPa
                 })
             }
         case SET_USERS: {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
         }
+        case SET_CURRENT_PAGE: {
+            return {...state,currentPage:action.currentPage}
+        }
+        case SET_TOTAL_USER_COUNT: {
+            return {...state,totalUsersCount:action.count}
+        }
+
         default:
             return state
     }
 };
 
-export type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
+export type ActionsType = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC> |
+            ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC>
+
 
 export const followAC = (userId:number) => ({type: FOLLOW, userId} as const)
 export const unfollowAC = (userId:number) => ({type: UNFOLLOW, userId} as const)
 export const setUsersAC = (users:[]) => ({type: SET_USERS, users} as const)
+export const setCurrentPageAC = (currentPage:number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
+export const setTotalUsersCountAC = (totalCount:number) => ({type: SET_TOTAL_USER_COUNT, count:totalCount} as const)
+
+
+
 
 export default usersReducer;
 
