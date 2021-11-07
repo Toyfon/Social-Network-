@@ -8,3 +8,9 @@
 .selectedStyle {
     font-weight: bold;
 }
+
+.pagesNumber {
+    display: flex;
+    gap: 4px;
+  border: 1px solid black;
+}

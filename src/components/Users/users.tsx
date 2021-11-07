@@ -1,7 +1,6 @@
 import React from "react";
 import {UserType} from "../../Redux/users-reducer";
 import s from './users.module.css'
-import axios from "axios";
 import userPhoto from './../../assets/images/user.png'
 
 
@@ -9,25 +8,36 @@ type UsersType = {
     users: UserType[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: any) => void
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
 }
 
-const Users: React.FC<UsersType> = ({users, follow, unfollow, setUsers}) => {
+const Users = ({users, follow, unfollow, totalUsersCount, pageSize, currentPage, onPageChanged}: UsersType) => {
 
-    if (users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            setUsers(response.data.items)
-        })
-    }
+    {
+        let pagesCount = Math.ceil(totalUsersCount / pageSize);//Math.ceil округляет до целого числа в большую сторону
+
+        let pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
 
 
-
-    return <div>
-        {
-            users.map(u => <div key={u.id}>
+        return <div>
+            <div className={s.pagesNumber}>
+                {pages.map(p => {
+                    return <span className={currentPage === p ? s.selectedStyle : ""}
+                                 onClick={(e) => {
+                                     onPageChanged(p)
+                                 }}>{p}</span>
+                })}
+            </div>
+            {users.map(u => <div key={u.id}>
             <span>
                 <div className={s.avatar}>
-                <img src={u.photos.small !== null? u.photos.small : userPhoto }/>
+                <img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="photo"/>
                 </div>
                 <div>
                     {u.followed ? <button onClick={() => {
@@ -36,7 +46,6 @@ const Users: React.FC<UsersType> = ({users, follow, unfollow, setUsers}) => {
                         : <button onClick={() => {
                             follow(u.id)
                         }}>Follow</button>}
-
                 </div>
             </span>
                 <span>
@@ -49,9 +58,9 @@ const Users: React.FC<UsersType> = ({users, follow, unfollow, setUsers}) => {
                     </span>
                 </span>
             </div>)
-        }
-
-    </div>
+            }
+        </div>
+    }
 }
 
 export default Users
