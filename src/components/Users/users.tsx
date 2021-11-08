@@ -16,6 +16,7 @@ type UsersType = {
 
 const Users = ({users, follow, unfollow, totalUsersCount, pageSize, currentPage, onPageChanged}: UsersType) => {
 
+
     {
         let pagesCount = Math.ceil(totalUsersCount / pageSize);//Math.ceil округляет до целого числа в большую сторону
 
