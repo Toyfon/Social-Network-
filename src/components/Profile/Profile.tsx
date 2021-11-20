@@ -5,14 +5,17 @@ import React from "react";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
+type ProfilePropsType ={
+profile: any
+}
 
-const Profile  = () => {
-debugger
+const Profile  = (props:ProfilePropsType) => {
+
     return (
 
         <div className={s.profile}>
-            <ProfileInfo/>
-            <MyPostsContainer/>
+            <ProfileInfo profile={props.profile}/>
+            <MyPostsContainer />
 
         </div>
     )
