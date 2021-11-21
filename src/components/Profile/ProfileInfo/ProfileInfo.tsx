@@ -1,8 +1,9 @@
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileType} from "../../../Redux/profilePage-reducer";
 
 type ProfileInfoPropsType ={
-    profile:any
+    profile: null | ProfileType
 }
 
 
@@ -13,6 +14,7 @@ const ProfileInfo = (props:ProfileInfoPropsType) => {
     }
     return (
         <div>
+
             <div className={s.profile}>
                 <img
                     src='https://source.unsplash.com/1600x900/?nature,water' alt='image'/>
@@ -20,8 +22,9 @@ const ProfileInfo = (props:ProfileInfoPropsType) => {
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large}/>
                 <div> {props.profile.contacts.github}</div>
-                <div> {props.profile.contacts.twitter}</div>
+                <div> {props.profile.contacts.instagram}</div>
                 <div> {props.profile.fullName}</div>
+                <div> {props.profile.lookingForAJobDescription}</div>
             </div>
         </div>
     )

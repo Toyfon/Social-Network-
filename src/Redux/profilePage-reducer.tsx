@@ -2,7 +2,22 @@ const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
-
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: boolean
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
+}
 
 
 export type PostsType = {
@@ -14,7 +29,7 @@ export type PostsType = {
 export type InitialProfilePageStateType = {
     posts: Array<PostsType>
     newPostText: string
-    profile: null
+    profile: null | ProfileType
 }
 
 
@@ -53,13 +68,15 @@ const profileReducer = (state = initialState, action: ActionsType): InitialProfi
 };
 
 
-export type ActionsType = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC> | ReturnType<typeof setUserProfile>
-
+export type ActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>
 
 
 export const addPostAC = () => ({type: ADD_POST} as const)
 export const updateNewPostTextAC = (text: string) => ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
-export const setUserProfile = (profile:any) => ({type: SET_USER_PROFILE, profile} as const)
+export const setUserProfile = (profile: null | ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
 
 export default profileReducer;
