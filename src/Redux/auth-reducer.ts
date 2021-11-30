@@ -5,6 +5,7 @@ export type InitialStateType = {
     email: string | null
     login: string | null
     isAuth:boolean
+    isFetching:boolean
 }
 
 
@@ -13,7 +14,8 @@ let initialState: InitialStateType = {
     id: null,
     email: null,
     login: null,
-    isAuth:false
+    isAuth:false,
+    isFetching:false
 };
 
 const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -25,6 +27,9 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
                 ...action.data,
                 isAuth:true
             }
+        case "TOGGLE-IS-FETCHING": {
+            return {...state, isFetching:action.isFetching}
+        }
 
         default:
             return state
@@ -32,12 +37,12 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
 };
 
 
-export type ActionsType = ReturnType<typeof setAuthUserDataAC>
+export type ActionsType = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof toggleIsFetching>
 
 
 
 export const setAuthUserDataAC = (id:number,email:string,login:string) => ({type: "SET_USER_DATA", data: {id,email,login}} as const)
-
+export const toggleIsFetching = (isFetching:boolean) => ({type: "TOGGLE-IS-FETCHING", isFetching} as const)
 
 
 
