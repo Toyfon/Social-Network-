@@ -3,6 +3,7 @@ import profileReducer from "./profilePage-reducer";
 import dialogsReducer from "./dialogsPage-reducer";
 import friendsBarReducer from "./friendsBar-reducer";
 import usersReducer from "./users-reducer";
+import authReducer from "./auth-reducer";
 
 
 
@@ -15,7 +16,8 @@ let appState = combineReducers({
     profilePage:profileReducer,
     dialogsPage:dialogsReducer,
     friendsBar:friendsBarReducer,
-    usersPage:usersReducer
+    usersPage:usersReducer,
+    auth: authReducer
 });
 
 let store:Store<AppStateType,any> = createStore(appState);
