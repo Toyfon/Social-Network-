@@ -21,7 +21,7 @@ componentDidMount() {
     this.props.toggleIsFetching(true)
     axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
         withCredentials:true
-    }) //Ajax запрос на сервер (side-effect)
+    })
         .then(response => {
             this.props.toggleIsFetching(false)
             if(response.data.resultCode === 0) {
