@@ -17,10 +17,10 @@ const ProfileInfo = (props:ProfileInfoPropsType) => {
 
             <div className={s.profile}>
                 <img
-                    src='https://source.unsplash.com/1600x900/?nature,water' alt='image'/>
+                    src='https://source.unsplash.com/1600x900/?nature,water' alt=''/>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
+                <img src={props.profile.photos.large} alt=''/>
                 <div> {props.profile.contacts.github}</div>
                 <div> {props.profile.contacts.instagram}</div>
                 <div> {props.profile.fullName}</div>

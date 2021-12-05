@@ -30,7 +30,7 @@ const Users = ({users, follow, unfollow, totalUsersCount, pageSize, currentPage,
     return <div>
         <div className={s.pagesNumber}>
             {pages.map(p => {
-                return <span className={currentPage === p ? s.selectedStyle : ""}
+                return <span  className={currentPage === p ? s.selectedStyle : ""}
                              onClick={() => {
                                  onPageChanged(p)
                              }}>{p}</span>

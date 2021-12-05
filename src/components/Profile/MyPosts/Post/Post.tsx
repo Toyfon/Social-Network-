@@ -10,7 +10,7 @@ const Post: React.FC<PostPropsType> = (props) => {
     return (
         <div className={s.item}>
             <img
-                src='https://www.blast.hk/attachments/68495/'/>
+                src='https://www.blast.hk/attachments/68495/' alt=''/>
             {props.message}
             <div className={s.text}>
                 <span>like</span> {props.likesCount}

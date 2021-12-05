@@ -11,8 +11,9 @@ import {
     UserType
 } from "../../Redux/users-reducer";
 import React from "react";
-import axios from "axios";
 import {Preloader} from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
+
 
 
 type UsersType = {
@@ -33,25 +34,21 @@ class UsersContainer extends React.Component<UsersType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)//специальный метод классовой компоненты, в который можно передавать side-effect
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials:true
-        }) //Ajax запрос на сервер (side-effect)
-            .then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            debugger
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount = 200)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount = 200)
             })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-            withCredentials:true
-        }) //Ajax запрос на сервер (side-effect)
-            .then(response => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.toggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
 

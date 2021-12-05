@@ -1,7 +1,6 @@
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import React from "react";
-
 import { PostsType } from "../../../Redux/profilePage-reducer";
 
 
@@ -16,10 +15,8 @@ type MyPostsPropsType = {
 }
 
 
-
-
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-    debugger
+
     let postElement = props.posts.map((p) =>
         <Post message={p.message} likesCount={p.likesCount}/>)
 

@@ -41,11 +41,11 @@ class ProfileContainer extends React.Component<OwnPropsType>{
 }
 
 
-
-
 let mapStateToProps = (state:AppStateType): mapStateToPropsType => ({
 profile: state.profilePage.profile
 })
+
+
 
 let UrlData = withRouter(ProfileContainer)
 

@@ -1,7 +1,4 @@
-import s from './Settings.module.css'
-
-
- export const Settings = () => {
+export const Settings = () => {
   return (
     <div>
       Settings

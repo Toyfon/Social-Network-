@@ -1,7 +1,4 @@
-import s from './News.module.css'
-
-
- export const News = () => {
+export const News = () => {
   return (
     <div>
       News

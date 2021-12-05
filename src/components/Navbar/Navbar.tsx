@@ -5,7 +5,7 @@ import React from "react";
 
 
 
-const Navbar = (props:any) => {
+const Navbar = () => {
 
     return (
         <nav className={s.nav}>
@@ -30,7 +30,7 @@ const Navbar = (props:any) => {
 
 
             <div className={s.settings}>
-                <img src="https://img.icons8.com/offices/30/000000/settings.png"/>
+                <img src="https://img.icons8.com/offices/30/000000/settings.png" alt=""/>
                 <NavLink to="/settings" activeClassName={s.activeLink}>Settings</NavLink>
             </div>
 

@@ -11,7 +11,7 @@ type dialogItemPropsType = {
     let path = "/dialogs/" + props.id
     return (
      <div className={s.dialog + ' ' + s.active}>
-         <img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxoVYK9gVqDWkfv3blKuxWEO0t9JrH6XSjxg&usqp=CAU'/>
+         <img src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxoVYK9gVqDWkfv3blKuxWEO0t9JrH6XSjxg&usqp=CAU' alt=""/>
          <div>
         <NavLink to={path}>{props.name}</NavLink>
     </div>
