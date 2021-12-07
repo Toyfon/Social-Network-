@@ -1,13 +1,13 @@
 
 import {Dispatch} from "redux";
-import {AppStateType} from "../../Redux/redux-store";
+import {RootReducerType} from "../../Redux/redux-store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {sendMessageCreator, updateNewMassageBodyCreator} from "../../Redux/dialogsPage-reducer";
 
 
 
-let mapStateToProps = (state: AppStateType) => {
+let mapStateToProps = (state: RootReducerType) => {
     return {
         dialogsPage: state.dialogsPage
     }

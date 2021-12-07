@@ -27,7 +27,7 @@ export const usersAPI = {
 }
 export const followAPI = {
     follow(userId: number) {
-        return instance.post<UserType,AxiosResponse<UserType>>(`follow/${userId}`, {})
+        return instance.post<UserType,AxiosResponse<UserType>>(`follow/${userId}`)
             .then(response => response.data)
     },
     unfollow(userId: number) {

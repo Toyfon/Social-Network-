@@ -3,7 +3,6 @@ import {UserType} from "../../Redux/users-reducer";
 import s from './users.module.css'
 import userPhoto from './../../assets/images/user.png'
 import {NavLink} from "react-router-dom";
-import {followAPI} from "../../api/api";
 
 
 type UsersType = {
@@ -14,14 +13,13 @@ type UsersType = {
     pageSize: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    toggleFollowingProgress:(followingInProgress:boolean, userId:number) => void
     followingInProgress:number[]
 }
 
-const Users = ({users, follow,
-                   unfollow, totalUsersCount,
+const Users = ({users,follow,unfollow,
+                   totalUsersCount,
                    pageSize, currentPage,
-                   onPageChanged, toggleFollowingProgress,followingInProgress}: UsersType) => {
+                   onPageChanged, followingInProgress}: UsersType) => {
 
 
     let pagesCount = Math.ceil(totalUsersCount / pageSize);//Math.ceil округляет до целого числа в большую сторону
@@ -51,23 +49,9 @@ const Users = ({users, follow,
                 <div>
                     {u.followed
                         ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-                            toggleFollowingProgress(true,u.id)
-                            followAPI.unfollow(u.id).then((data) => {
-                                    if (data.resultCode === 0) {
-                                        unfollow(u.id)
-                                    }
-                                toggleFollowingProgress(false,u.id)
-                                })
-                        }}>Unfollow</button>
+                           unfollow(u.id)}}>Unfollow</button>
                         : <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-                            toggleFollowingProgress(true,  u.id)
-                            followAPI.follow(u.id).then((data) => {
-                                if (data.resultCode === 0) {
-                                    follow(u.id)
-                                }
-                                toggleFollowingProgress(false,u.id)
-                            })
-                        }}>Follow</button>}
+                            follow(u.id)}}>Follow</button>}
                 </div>
             </span>
             <span>

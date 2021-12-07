@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {setAuthUserDataAC, toggleIsFetching} from "../../Redux/auth-reducer";
-import {AppStateType} from "../../Redux/redux-store";
+import {RootReducerType} from "../../Redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
 import {authAPI, Result} from "../../api/api";
 
@@ -32,7 +32,6 @@ class HeaderContainer extends React.Component<AuthType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
         authAPI.getAuth().then((response) => {
-            debugger
             this.props.toggleIsFetching(false)
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
@@ -50,7 +49,7 @@ class HeaderContainer extends React.Component<AuthType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: RootReducerType) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login,
     isFetching: state.auth.isFetching

@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {followAPI, usersAPI} from "../api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
@@ -77,22 +80,72 @@ const usersReducer = (state = initialState, action: ActionsType): InitialUsersPa
     }
 };
 
-export type ActionsType = ReturnType<typeof follow> | ReturnType<typeof unfollow> | ReturnType<typeof setUsers> |
-    ReturnType<typeof setCurrentPage> | ReturnType<typeof setTotalUsersCount> |
-    ReturnType<typeof toggleIsFetching> | ReturnType<typeof toggleFollowingProgress>
+export type ActionsType =
+    ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
+    | ReturnType<typeof setUsers>
+    |
+    ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    |
+    ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleFollowingProgress>
 
-
-export const follow = (userId: number) => ({type: FOLLOW, userId} as const)
-export const unfollow = (userId: number) => ({type: UNFOLLOW, userId} as const)
+//Action Creators (dispatching actions)
+export const followSuccess = (userId: number) => ({type: FOLLOW, userId} as const)
+export const unfollowSuccess = (userId: number) => ({type: UNFOLLOW, userId} as const)
 export const setUsers = (users: []) => ({type: SET_USERS, users} as const)
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalCount: number) => ({type: SET_TOTAL_USER_COUNT, count: totalCount} as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
-export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({
+export const toggleFollowingProgress = (isFetching: boolean, userId: number) => (
+    {
     type: TOGGLE_IS_FOLLOWING_PROGRESS,
     isFetching,
     userId
 } as const)
+
+
+//ThunkCreator (функция, которая принимает параметры и возвращает санку)
+export const getUsers = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch ) => {
+        dispatch(toggleIsFetching(true))
+
+
+        usersAPI.getUsers(currentPage, pageSize)
+            .then((data) => {
+                dispatch(toggleIsFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount = 200))
+            })
+    }
+}
+
+export const unfollow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        followAPI.unfollow(userId)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowSuccess(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
+
+export const follow = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleFollowingProgress(true, userId))
+        followAPI.follow(userId)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    dispatch(followSuccess(userId))
+                }
+                dispatch(toggleFollowingProgress(false, userId))
+            })
+    }
+}
 
 
 export default usersReducer;
