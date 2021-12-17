@@ -60,12 +60,6 @@ let mapStateToProps = (state: RootReducerType) => {
     }
 }
 
-//let withRedirect = withAuthRedirect(UsersContainer)
-
-
-/*export default withAuthRedirect(connect(mapStateToProps, {
-    follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers
-})(UsersContainer))*/
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
