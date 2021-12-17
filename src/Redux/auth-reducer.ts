@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../api/api";
+
 export type InitialStateType = {
     id: number | null
     email: string | null
@@ -43,6 +46,17 @@ export const setAuthUserDataAC = (id: number, email: string, login: string) => (
 } as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE-IS-FETCHING", isFetching} as const)
 
+//ThunkCreator
+export const getAuthUserData = () => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
+        authAPI.me().then((response) => {
+            dispatch(toggleIsFetching(false))
+                if (response.data.resultCode === 0) {
+                     let {id, email, login} = response.data.data
+            dispatch(setAuthUserDataAC(id, email, login))
+        }
+    })
+}
 
 export default authReducer;
 

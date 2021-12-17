@@ -37,12 +37,11 @@ export const followAPI = {
 }
 export const profileAPI = {
     getProfile(userId: string) {
-        return instance.get<ProfileType>(`profile/` + userId)
-            .then(response => response.data)
+        return instance.get<ProfileType>(`profile/` + userId);
     }
 }
 export const authAPI = {
-    getAuth() {
+    me() {
         return instance.get<AuthMeResponseType>(`auth/me`)
     }
 }

@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {followAPI, usersAPI} from "../api/api";
+import {batch} from "react-redux";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = 'UNFOLLOW'
@@ -109,20 +110,20 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
 //ThunkCreator (функция, которая принимает параметры и возвращает санку)
 export const getUsers = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch ) => {
-        dispatch(toggleIsFetching(true))
-
-
-        usersAPI.getUsers(currentPage, pageSize)
-            .then((data) => {
-                dispatch(toggleIsFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setTotalUsersCount(data.totalCount = 200))
-            })
+        // should return result in one re-render, not four
+        batch(()=> {
+            dispatch(toggleIsFetching(true))
+            usersAPI.getUsers(currentPage, pageSize)
+                .then((data) => {
+                    dispatch(toggleIsFetching(false))
+                    dispatch(setUsers(data.items))
+                    dispatch(setTotalUsersCount(data.totalCount = 200))
+                })
+        })
     }
 }
 
-export const unfollow = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const unfollow = (userId: number) => (dispatch: Dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
         followAPI.unfollow(userId)
             .then((data) => {
@@ -132,10 +133,9 @@ export const unfollow = (userId: number) => {
                 dispatch(toggleFollowingProgress(false, userId))
             })
     }
-}
 
-export const follow = (userId: number) => {
-    return (dispatch: Dispatch) => {
+
+export const follow = (userId: number) => (dispatch: Dispatch) => {
         dispatch(toggleFollowingProgress(true, userId))
         followAPI.follow(userId)
             .then((data) => {
@@ -144,8 +144,8 @@ export const follow = (userId: number) => {
                 }
                 dispatch(toggleFollowingProgress(false, userId))
             })
-    }
 }
+
 
 
 export default usersReducer;

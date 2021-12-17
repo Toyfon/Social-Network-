@@ -6,6 +6,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../Redux/profilePage-reducer";
 
 
+
 type ProfilePropsType ={
 profile: null | ProfileType
 }
