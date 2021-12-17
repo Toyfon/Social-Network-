@@ -9,7 +9,8 @@ import {sendMessageCreator, updateNewMassageBodyCreator} from "../../Redux/dialo
 
 let mapStateToProps = (state: RootReducerType) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 

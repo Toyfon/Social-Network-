@@ -4,11 +4,13 @@ import {Message} from "./Message/Message";
 
 import React, {ChangeEvent} from "react";
 import {InitialDialogsPageStateType} from "../../Redux/dialogsPage-reducer";
+import {Redirect} from "react-router-dom";
 
 type DialogsType = {
     dialogsPage: InitialDialogsPageStateType
     updateNewMassageBody: (body: string) => void
     sendMessage: () => void
+    isAuth:boolean
 }
 
 
@@ -30,6 +32,8 @@ export const Dialogs: React.FC<DialogsType> = (props) => {
         let body = e.target.value
         props.updateNewMassageBody(body)
     }
+
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.dialogs}>

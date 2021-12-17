@@ -6,18 +6,17 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../Redux/profilePage-reducer";
 
 
-
-type ProfilePropsType ={
-profile: null | ProfileType
+type ProfilePropsType = {
+    profile: null | ProfileType
 }
 
-const Profile  = (props:ProfilePropsType) => {
+const Profile = (props: ProfilePropsType) => {
 
     return (
 
         <div className={s.profile}>
-            <ProfileInfo profile={props.profile}/>
-            <MyPostsContainer />
+            <ProfileInfo profile={props.profile} />
+            <MyPostsContainer/>
 
         </div>
     )

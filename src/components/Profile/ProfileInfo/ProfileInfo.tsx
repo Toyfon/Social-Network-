@@ -3,8 +3,11 @@ import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileType} from "../../../Redux/profilePage-reducer";
 import userPhoto from './../../../assets/images/user.png'
 
+import React from "react";
+
 type ProfileInfoPropsType ={
     profile: null | ProfileType
+
 }
 
 
