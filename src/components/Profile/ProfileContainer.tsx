@@ -47,5 +47,5 @@ let mapStateToProps = (state: RootReducerType): mapStateToPropsType => ({
 export default compose<React.ComponentType> (
     connect(mapStateToProps, {getUserProfile}),
     withRouter,
-    withAuthRedirect
+   // withAuthRedirect
 )(ProfileContainer)

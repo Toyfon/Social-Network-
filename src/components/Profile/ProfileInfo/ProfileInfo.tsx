@@ -4,30 +4,32 @@ import {ProfileType} from "../../../Redux/profilePage-reducer";
 import userPhoto from './../../../assets/images/user.png'
 
 import React from "react";
+import ProfileStatus from './ProfileStatus';
 
-type ProfileInfoPropsType ={
+
+type ProfileInfoPropsType = {
     profile: null | ProfileType
-
 }
 
 
+const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
 
-const ProfileInfo = (props:ProfileInfoPropsType) => {
-    if (!props.profile) {
-       return <Preloader/>
+    if (!profile) {
+        return <Preloader/>
     }
     return (
         <div>
-            <div className={s.profile}>
+           {/* <div className={s.profile}>
                 <img
-                    src='https://source.unsplash.com/1600x900/?nature,water' alt=''/>
-            </div>
+                    src='https://source.unsplash.com/1600x900/?nature,water' alt='water'/>
+            </div>*/}
             <div className={s.descriptionBlock}>
-                <img src={props.profile.photos.large !== null ? props.profile.photos.large : userPhoto } alt='UserPhoto'/>
-                <div> {props.profile.contacts.github}</div>
-                <div> {props.profile.contacts.instagram}</div>
-                <div> {props.profile.fullName}</div>
-                <div> {props.profile.lookingForAJobDescription}</div>
+                <img src={profile.photos.large !== null ? profile.photos.large : userPhoto} alt='UserPhoto'/>
+                <div> {profile.contacts.github}</div>
+                <div> {profile.contacts.instagram}</div>
+                <div> {profile.fullName}</div>
+                <div> {profile.lookingForAJobDescription}</div>
+                <ProfileStatus status={"hello"}/>
             </div>
         </div>
     )
