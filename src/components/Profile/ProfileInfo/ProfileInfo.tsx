@@ -9,7 +9,7 @@ import ProfileStatus from './ProfileStatus';
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
-    status:string
+    status: string
     updateStatus: (status:string) => void
 }
 

@@ -3,13 +3,13 @@ import {Result} from "../../../api/api";
 
 type ProfileStatusType = {
     status: string
-    updateStatus: (status:string) => void
+    updateStatus: (status: string) => void
 }
 
 
- type ResponseType = {
-    status:string
- }
+type ResponseType = {
+    status: string
+}
 
 export type statusResponseType = Result<ResponseType>
 
@@ -32,9 +32,16 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
         });
         this.props.updateStatus(this.state.status)
     }
-    onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {
+    onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             status: e.currentTarget.value
+        })
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>) {
+        if(prevProps.status !== this.props.status)
+        this.setState({
+            status: this.props.status
         })
     }
 
