@@ -2,6 +2,7 @@ import axios, {AxiosResponse} from "axios";
 import {UserType} from "../Redux/users-reducer";
 import {ProfileType} from "../Redux/profilePage-reducer";
 import {AuthMeResponseType} from "../components/Header/Header-container";
+import {statusResponseType} from "../components/Profile/ProfileInfo/ProfileStatus";
 
 
 
@@ -36,8 +37,16 @@ export const followAPI = {
     }
 }
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         return instance.get<ProfileType>(`profile/` + userId);
+    },
+    getStatus(userId:number) {
+        return instance.get<string>(`profile/status/` + userId);
+    },
+    updateStatus(status:string) {
+        return instance.put<statusResponseType>(`profile/status`, {
+            status:status
+        });
     }
 }
 export const authAPI = {

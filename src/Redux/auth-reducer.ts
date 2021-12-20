@@ -47,7 +47,7 @@ export const setAuthUserDataAC = (id: number, email: string, login: string) => (
 export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE-IS-FETCHING", isFetching} as const)
 
 //ThunkCreator
-export const getAuthUserData = () => (dispatch: Dispatch) => {
+export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
     dispatch(toggleIsFetching(true))
         authAPI.me().then((response) => {
             dispatch(toggleIsFetching(false))

@@ -9,10 +9,12 @@ import ProfileStatus from './ProfileStatus';
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
+    status:string
+    updateStatus: (status:string) => void
 }
 
 
-const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
+const ProfileInfo = ({profile,status,updateStatus}: ProfileInfoPropsType) => {
 
     if (!profile) {
         return <Preloader/>
@@ -29,7 +31,7 @@ const ProfileInfo = ({profile}: ProfileInfoPropsType) => {
                 <div> {profile.contacts.instagram}</div>
                 <div> {profile.fullName}</div>
                 <div> {profile.lookingForAJobDescription}</div>
-                <ProfileStatus status={"hello"}/>
+                <ProfileStatus status={status} updateStatus={updateStatus}/>
             </div>
         </div>
     )

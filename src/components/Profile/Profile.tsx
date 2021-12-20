@@ -8,6 +8,8 @@ import {ProfileType} from "../../Redux/profilePage-reducer";
 
 type ProfilePropsType = {
     profile: null | ProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 const Profile = (props: ProfilePropsType) => {
@@ -15,7 +17,10 @@ const Profile = (props: ProfilePropsType) => {
     return (
 
         <div className={s.profile}>
-            <ProfileInfo profile={props.profile} />
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}
+            />
             <MyPostsContainer/>
 
         </div>
