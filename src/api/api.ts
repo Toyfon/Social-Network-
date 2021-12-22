@@ -20,9 +20,11 @@ export type Result<T> = {
     data: T
 }
 
+
+
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get<UserType>(`users?page=${currentPage}&count=${pageSize}`,) // get запрос (типизируем только AxiosResponse)
+    getUsers(currentPage = 1, pageSize = 10, term = '', friend: null | boolean = null) {
+        return instance.get<UserType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '': `&friend=${friend}`)) // get запрос (типизируем только AxiosResponse)
             .then(response => response.data)
     }
 }
@@ -32,7 +34,7 @@ export const followAPI = {
             .then(response => response.data)
     },
     unfollow(userId: number) {
-        return instance.delete<UserType>(`follow/${userId}`) // delete запрос (типизируем только AxiosResponse)
+        return instance.delete(`follow/${userId}`) // delete запрос (типизируем только AxiosResponse)
             .then(response => response.data)
     }
 }

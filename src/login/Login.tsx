@@ -35,7 +35,7 @@ const LoginForm = () => {
                     <Field id={'login'} name={'login'} placeholder={"Login"}/>
                 </div>
                 <div>
-                    <Field id={'password'} name={'password'} placeholder={"Password"}/>
+                    <Field id={'password'} type={'password'} name={'password'} placeholder={"Password"}/>
                 </div>
                 <div>
                     <Field id={'rememberMe'} name={'rememberMe'} type={"checkbox"}/> remember me
