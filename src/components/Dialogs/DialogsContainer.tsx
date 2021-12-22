@@ -2,7 +2,7 @@ import {compose, Dispatch} from "redux";
 import {RootReducerType} from "../../Redux/redux-store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {sendMessageCreator, updateNewMassageBodyCreator} from "../../Redux/dialogsPage-reducer";
+import {sendMessageCreator} from "../../Redux/dialogsPage-reducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import React from "react";
 
@@ -15,14 +15,10 @@ let mapStateToProps = (state: RootReducerType) => {
 
 let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        updateNewMassageBody: (body: string) => {
-            dispatch(updateNewMassageBodyCreator(body))
-        },
-        sendMessage: () => {
-            dispatch(sendMessageCreator())
+        sendMessage: (newMessageBody:string) => {
+            dispatch(sendMessageCreator(newMessageBody))
         }
     }
-
 }
 
 

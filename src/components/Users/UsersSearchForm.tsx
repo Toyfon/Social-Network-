@@ -20,7 +20,7 @@ type PropsType = {
 export const UsersSearchForm: FC<PropsType> = React.memo(({onFilterChanged, ...props}) => {
     const initialValues: FormType = {term: '', friend: 'null'}
     const submit = (values: FormType, {setSubmitting}: FormikHelpers<FormType>) => {
-        const filter:FilterType = {
+        const filter: FilterType = {
             term: values.term,
             friend: values.friend === "null" ? null : values.friend === "true"
         }

@@ -1,19 +1,14 @@
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import React from "react";
-import { PostsType } from "../../../Redux/profilePage-reducer";
-
-
-
+import React, {useCallback} from "react";
+import {PostsType} from "../../../Redux/profilePage-reducer";
+import {PostForm} from "../PostForm";
 
 
 type MyPostsPropsType = {
     posts: Array<PostsType>
-    newPostText: string
-    updateNewPostText:(text:string) => void
-    addPost:()=> void
+    addPost: (post: string) => void
 }
-
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
@@ -21,30 +16,15 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         <Post message={p.message} likesCount={p.likesCount}/>)
 
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
-
-    let addPost = () => {
-        props.addPost()
-    }
-
-    let onPostChange = () => {
-        let text = newPostElement.current?.value;
-        props.updateNewPostText (text!)
-    }
-
-
+    let addNewPost = useCallback((newPostText: string) => {
+        props.addPost(newPostText)
+    }, [props])
 
 
     return <div>
         <div className={s.postBlock}>
             <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea ref={newPostElement} onChange={onPostChange}
-                              value={props.newPostText}/>
-                </div>
-                <button className={s.btn} onClick={addPost}>Add</button>
-            </div>
+            <PostForm addNewPost={addNewPost}/>
         </div>
         <div className={s.posts}>
             {postElement}
