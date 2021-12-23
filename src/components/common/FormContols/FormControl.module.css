@@ -1,0 +1,12 @@
+.formControlNotError textarea{
+    border: 1px solid black;
+}
+
+.formControlError textarea{
+    border: 1px solid red;
+}
+
+
+.errColor {
+    color: red;
+}
