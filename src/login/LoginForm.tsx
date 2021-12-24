@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC} from "react";
 import {useFormik} from "formik";
 import * as yup from 'yup';
 import {Button, Checkbox, FormControlLabel, TextField} from "@mui/material";

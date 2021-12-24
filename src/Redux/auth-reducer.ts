@@ -67,6 +67,7 @@ export type ThunkType = ThunkAction<
     >
 
 export const login = (email: string, password: string, rememberMe: boolean):ThunkType => (dispatch) => {
+
     dispatch(toggleIsFetching(true))
     authAPI.login(email, password, rememberMe).then((response) => {
         dispatch(toggleIsFetching(false))

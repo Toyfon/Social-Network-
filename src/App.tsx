@@ -10,6 +10,7 @@ import UsersContainer from "./components/Users/usersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/Header-container";
 import {Login} from "./login/LoginForm";
+import {LoginFormReactHookForm} from "./login/LoginFormReactHookForm";
 
 
 
@@ -27,7 +28,7 @@ const App = () => {
                 <Route path='/settings' render={() => <Settings/>}/>
                 {/*  <Route path='/friends' render={() => <Friends friends={props.store.getState().friendsBar.friends}/>}/>*/}
                 <Route path='/users' render={() => <UsersContainer/>}/>
-                <Route path='/login' render={() => <Login/>}/>
+                <Route path='/login' render={() => <LoginFormReactHookForm/>}/>
 
             </div>
         </div>
