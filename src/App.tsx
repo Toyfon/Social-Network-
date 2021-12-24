@@ -9,7 +9,8 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/usersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/Header-container";
-import {Login} from "./login/Login";
+import {Login} from "./login/LoginForm";
+
 
 
 const App = () => {

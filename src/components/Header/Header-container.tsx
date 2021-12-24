@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {getAuthUserData} from "../../Redux/auth-reducer";
+import {getAuthUserData, logout} from "../../Redux/auth-reducer";
 import {RootReducerType} from "../../Redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
 import {Result} from "../../api/api";
@@ -12,6 +12,7 @@ export type AuthType = {
     isAuth: boolean
     isFetching: boolean
     getAuthUserData:() => void
+    logout: () => void
 }
 
 
@@ -34,7 +35,7 @@ class HeaderContainer extends React.Component<AuthType> {
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
-            <Header {...this.props}/>
+            <Header {...this.props} logout={this.props.logout}/>
         </>
 
     }
@@ -46,6 +47,6 @@ const mapStateToProps = (state: RootReducerType) => ({
     isFetching: state.auth.isFetching
 })
 
-export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer)
+export default connect(mapStateToProps, {getAuthUserData, logout})(HeaderContainer)
 
 

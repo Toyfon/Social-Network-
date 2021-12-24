@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {RootReducerType} from "../../Redux/redux-store";
 import {getStatus, getUserProfile, ProfileType, updateStatus} from "../../Redux/profilePage-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
@@ -36,9 +35,9 @@ class ProfileContainer extends React.Component<OwnPropsType> {
         this.props.getStatus(userId)
     }
 
+
+
     render() {
-
-
         return (
             <Profile {...this.props}
                      profile={this.props.profile}

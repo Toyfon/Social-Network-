@@ -80,7 +80,6 @@ export const setStatus = (status: string) => ({type: SET_STATUS, status} as cons
 //ThunkCreator
 export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     profileAPI.getProfile(userId).then(response => {
-        debugger
         dispatch(setUserProfile(response.data))
     })
 }

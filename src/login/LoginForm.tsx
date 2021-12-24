@@ -1,52 +1,21 @@
-import React, {FC} from "react";
-import {Field, Form, Formik, FormikHelpers, useFormik} from "formik";
+import React, {FC, useEffect} from "react";
+import {useFormik} from "formik";
 import * as yup from 'yup';
-import {Button, TextField} from "@mui/material";
+import {Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import s from './LoginForm.module.css'
+import {useDispatch, useSelector} from "react-redux";
+import {login} from "../Redux/auth-reducer";
+import {RootReducerType} from "../Redux/redux-store";
+import {Redirect} from "react-router-dom";
 
 
-type FormType = {
+export type FormType = {
     email: string
     password: string
-    //rememberMe: boolean
+    rememberMe: boolean
 }
 
 type PropsType = {}
-
-// export const LoginForm: FC<PropsType> = React.memo(() => {
-//     const initialValues: FormType = {email: '', password: '', rememberMe: false}
-//     const submit = (values: FormType, {setSubmitting}: FormikHelpers<FormType>) => {
-//         console.log(values)
-//         setSubmitting(false);
-//     }
-//
-//     return <div>
-//         <Formik
-//             initialValues={initialValues}
-//             onSubmit={submit}
-//         >
-//             {({isSubmitting, errors,touched}) => (
-//                 <Form>
-//                     <div>
-//                         <Field name={'email'} placeholder={"Email"} />
-//                     </div>
-//                     <div>
-//                         <Field name={'password'} type={'password'} placeholder={"Password"} />
-//                     </div>
-//                     <div>
-//                         <Field name={'rememberMe'} type={"checkbox"}  /> remember me
-//                     </div>
-//                     <div>
-//                         <button disabled={isSubmitting}>Login</button>
-//                     </div>
-//                 </Form>
-//             )}
-//         </Formik>
-//     </div>
-//
-// })
-//
-
 
 const validationSchema = yup.object({
     email: yup
@@ -58,42 +27,66 @@ const validationSchema = yup.object({
         .min(8, 'Password should be of minimum 8 characters length')
         .required('Password is required'),
 });
-export const WithMaterialUI:FC<PropsType> = () => {
+
+
+export const Login: FC<PropsType> = () => {
+
+    const isAuth = useSelector<RootReducerType, boolean>(state => state.auth.isAuth)
+    const dispatch = useDispatch()
+
     const formik = useFormik<FormType>({
         initialValues: {
             email: '',
             password: '',
+            rememberMe: false
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+            const {email, password, rememberMe} = values
+            dispatch(login(email, password, rememberMe))
+
         },
     });
+
+    if (isAuth) {
+        return  <Redirect to={'/profile'}/>
+    }
+    
     return (
-        <div >
+        <div>
             <form onSubmit={formik.handleSubmit} className={s.form}>
-                <TextField
-                    id="email"
-                    name="email"
-                    label="Email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
-                    sx={{width: '300px', marginBottom: '10px'}}
+                <TextField variant={'standard'}
+                           id="email"
+                           name="email"
+                           label="Email"
+                           value={formik.values.email}
+                           onChange={formik.handleChange}
+                           error={formik.touched.email && Boolean(formik.errors.email)}
+                           helperText={formik.touched.email && formik.errors.email}
+                           sx={{width: '300px', marginBottom: '10px'}}
                 />
-                <TextField
-                    id="password"
-                    name="password"
-                    label="Password"
-                    type="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    error={formik.touched.password && Boolean(formik.errors.password)}
-                    helperText={formik.touched.password && formik.errors.password}
-                    sx={{width: '300px', marginBottom: '10px'}}
+                <TextField variant={'standard'}
+                           id="password"
+                           name="password"
+                           label="Password"
+                           type="password"
+                           value={formik.values.password}
+                           onChange={formik.handleChange}
+                           error={formik.touched.password && Boolean(formik.errors.password)}
+                           helperText={formik.touched.password && formik.errors.password}
+                           sx={{width: '300px', marginBottom: '10px'}}
                 />
-                <Button color="primary" variant="contained"  type="submit"   sx={{width: '50px', marginBottom: '5px'}}>
+
+                <FormControlLabel
+                    id={'rememberMe'}
+                    value={formik.values.rememberMe}
+                    name={'rememberMe'}
+                    control={<Checkbox/>}
+                    label="Remember me"
+                    labelPlacement="end"
+                    onChange={formik.handleChange}
+                />
+                <Button color="primary" variant="contained" type="submit" sx={{width: '50px', marginBottom: '5px'}}>
                     Submit
                 </Button>
             </form>

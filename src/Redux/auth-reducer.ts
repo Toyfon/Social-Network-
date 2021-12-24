@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
 import {authAPI} from "../api/api";
+import {RootReducerType} from "./redux-store";
 
 export type InitialStateType = {
     id: number | null
@@ -24,11 +26,10 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
         case "SET_USER_DATA":
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
             }
         case "TOGGLE-IS-FETCHING": {
-            return {...state, isFetching: action.isFetching}
+            return {...state, isFetching: action.payload.isFetching}
         }
 
         default:
@@ -40,23 +41,52 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
 export type ActionsType = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof toggleIsFetching>
 
 
-export const setAuthUserDataAC = (id: number, email: string, login: string) => ({
+export const setAuthUserDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
     type: "SET_USER_DATA",
-    data: {id, email, login}
+    payload: {id, email, login, isAuth}
 } as const)
-export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE-IS-FETCHING", isFetching} as const)
+export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE-IS-FETCHING", payload:{isFetching}} as const)
 
 //ThunkCreator
 export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
     dispatch(toggleIsFetching(true))
-        authAPI.me().then((response) => {
-            dispatch(toggleIsFetching(false))
-                if (response.data.resultCode === 0) {
-                     let {id, email, login} = response.data.data
-            dispatch(setAuthUserDataAC(id, email, login))
+    authAPI.me().then((response) => {
+        dispatch(toggleIsFetching(false))
+        if (response.data.resultCode === 0) {
+            let {id, email, login} = response.data.data
+            dispatch(setAuthUserDataAC(id, email, login, true))
         }
     })
 }
+
+export type ThunkType = ThunkAction<
+    void, // Return type of the thunk function
+    RootReducerType, // state type used by getState
+    unknown, // any "extra argument" injected into the thunk
+    ActionsType // known types of actions that can be dispatched
+    >
+
+export const login = (email: string, password: string, rememberMe: boolean):ThunkType => (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    authAPI.login(email, password, rememberMe).then((response) => {
+        dispatch(toggleIsFetching(false))
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserData())
+        }
+    })
+}
+
+
+export const logout = ():ThunkType => (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    authAPI.logout().then((response) => {
+        dispatch(toggleIsFetching(false))
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserDataAC(null,null,null,false))
+        }
+    })
+}
+
 
 export default authReducer;
 
