@@ -111,13 +111,14 @@ export const setFilter = (filter:FilterType) => ({type: SET_FILTER, payload: {fi
 
 
 //ThunkCreator (функция, которая принимает параметры и возвращает санку)
-export const getUsers = (currentPage: number, pageSize: number, filter:FilterType) => {
+export const requestUsers = (page: number, pageSize: number, filter:FilterType) => {
     return (dispatch: Dispatch) => {
         // should return result in one re-render, not four
         batch(() => {
+            dispatch(setCurrentPage(page))
             dispatch(toggleIsFetching(true))
             dispatch(setFilter(filter))
-            usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
+            usersAPI.getUsers(page, pageSize, filter.term, filter.friend)
                 .then((data) => {
                     dispatch(toggleIsFetching(false))
                     dispatch(setUsers(data.items))

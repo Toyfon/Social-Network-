@@ -4,7 +4,7 @@ import {RootReducerType} from "../../Redux/redux-store";
 import {
     FilterType,
     follow,
-    getUsers,
+    requestUsers,
     setCurrentPage,
     toggleFollowingProgress,
     unfollow,
@@ -12,8 +12,14 @@ import {
 } from "../../Redux/users-reducer";
 import React from "react";
 import {Preloader} from "../common/Preloader/Preloader";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage, getFilter, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../Redux/selectors/users-selectors";
 
 
 type UsersType = {
@@ -65,23 +71,34 @@ class UsersContainer extends React.Component<UsersType> {
         </>
     }
 }
-
+//
+// let mapStateToProps = (state: RootReducerType) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//         filter: state.usersPage.filter
+//     }
+// }
 let mapStateToProps = (state: RootReducerType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        filter: state.usersPage.filter
+        users: getUsers(state), // selectors
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        filter: getFilter(state)
     }
 }
 
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-        follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers
+        follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers: requestUsers
     }),
    // withAuthRedirect
 )(UsersContainer)
