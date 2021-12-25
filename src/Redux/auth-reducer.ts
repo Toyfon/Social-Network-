@@ -58,7 +58,7 @@ export const showDataMessage = (errorMessage: string ) => ({type: "SHOW_DATA_MES
 //ThunkCreator
 export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
     dispatch(toggleIsFetching(true))
-    authAPI.me().then((response) => {
+     return authAPI.me().then((response) => {
         dispatch(toggleIsFetching(false))
         if (response.data.resultCode === 0) {
             let {id, email, login} = response.data.data

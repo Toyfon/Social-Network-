@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useRef, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import {login} from "../Redux/auth-reducer";
@@ -23,7 +23,7 @@ const schema = yup.object({
     password: yup.string().required('Password is required').min(8, 'Password should be  min 8 characters length'),
 });
 
-export const LoginFormReactHookForm: FC<PropsType> = () => {
+export const LoginFormReactHookForm: FC<PropsType> = React.memo(() => {
 
     const errorMessage = useSelector<RootReducerType, string>(state => state.auth.errorMessage)
     const isAuth = useSelector<RootReducerType, boolean>(state => state.auth.isAuth)
@@ -117,4 +117,4 @@ export const LoginFormReactHookForm: FC<PropsType> = () => {
 
         </div>
     )
-}
+})

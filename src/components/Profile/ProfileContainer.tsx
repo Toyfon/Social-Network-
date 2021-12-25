@@ -32,6 +32,9 @@ class ProfileContainer extends React.Component<OwnPropsType> {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = String(this.props.id!)
+            // if (userId) {
+            //     this.props.history.push('/login') // системный редирект (не желателен, потому что вмешиваемся в жизненный цикл компоненты// )
+            // }
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)

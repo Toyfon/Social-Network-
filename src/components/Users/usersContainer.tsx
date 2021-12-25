@@ -83,6 +83,6 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers
     }),
-    withAuthRedirect
+   // withAuthRedirect
 )(UsersContainer)
 
