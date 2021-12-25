@@ -9,6 +9,7 @@ export type InitialStateType = {
     login: string | null
     isAuth: boolean
     isFetching: boolean
+    errorMessage: string
 }
 
 
@@ -17,7 +18,8 @@ let initialState: InitialStateType = {
     email: null,
     login: null,
     isAuth: false,
-    isFetching: false
+    isFetching: false,
+    errorMessage: ""
 };
 
 const authReducer = (state = initialState, action: ActionsType): InitialStateType => {
@@ -31,6 +33,9 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
         case "TOGGLE-IS-FETCHING": {
             return {...state, isFetching: action.payload.isFetching}
         }
+        case "SHOW_DATA_MESSAGE": {
+            return {...state, ...action.payload}
+        }
 
         default:
             return state
@@ -38,7 +43,8 @@ const authReducer = (state = initialState, action: ActionsType): InitialStateTyp
 };
 
 
-export type ActionsType = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof toggleIsFetching>
+export type ActionsType = ReturnType<typeof setAuthUserDataAC> | ReturnType<typeof toggleIsFetching> |
+                          ReturnType<typeof showDataMessage>
 
 
 export const setAuthUserDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
@@ -46,6 +52,8 @@ export const setAuthUserDataAC = (id: number | null, email: string | null, login
     payload: {id, email, login, isAuth}
 } as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: "TOGGLE-IS-FETCHING", payload:{isFetching}} as const)
+export const showDataMessage = (errorMessage: string ) => ({type: "SHOW_DATA_MESSAGE", payload:{errorMessage}} as const)
+
 
 //ThunkCreator
 export const getAuthUserData = () => (dispatch: Dispatch<ActionsType>) => {
@@ -67,12 +75,14 @@ export type ThunkType = ThunkAction<
     >
 
 export const login = (email: string, password: string, rememberMe: boolean):ThunkType => (dispatch) => {
-
     dispatch(toggleIsFetching(true))
     authAPI.login(email, password, rememberMe).then((response) => {
         dispatch(toggleIsFetching(false))
         if (response.data.resultCode === 0) {
             dispatch(getAuthUserData())
+        } else {
+            let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some Error"
+            dispatch(showDataMessage(message))
         }
     })
 }
