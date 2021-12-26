@@ -4,7 +4,7 @@ import {ProfileType} from "../../../Redux/profilePage-reducer";
 import userPhoto from './../../../assets/images/user.png'
 
 import React from "react";
-import ProfileStatus from './ProfileStatus';
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 
 type ProfileInfoPropsType = {
@@ -31,7 +31,7 @@ const ProfileInfo = ({profile,status,updateStatus}: ProfileInfoPropsType) => {
                 <div> {profile.contacts.instagram}</div>
                 <div> {profile.fullName}</div>
                 <div> {profile.lookingForAJobDescription}</div>
-                <ProfileStatus status={status} updateStatus={updateStatus}/>
+                <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
             </div>
         </div>
     )

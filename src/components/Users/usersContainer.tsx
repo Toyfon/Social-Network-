@@ -71,21 +71,10 @@ class UsersContainer extends React.Component<UsersType> {
         </>
     }
 }
-//
-// let mapStateToProps = (state: RootReducerType) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress,
-//         filter: state.usersPage.filter
-//     }
-// }
+
 let mapStateToProps = (state: RootReducerType) => {
     return {
-        users: getUsers(state), // selectors
+        users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
