@@ -36,7 +36,7 @@ export type InitialProfilePageStateType = {
 }
 
 
-let initialState: InitialProfilePageStateType = {
+ export let initialState: InitialProfilePageStateType = {
     posts: [],
     profile: null,
     status: ""

@@ -1,8 +1,8 @@
 import {addPostAC} from "../../../Redux/profilePage-reducer";
 import {RootReducerType} from "../../../Redux/redux-store";
-import MyPosts from "./MyPosts";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
+import {MyPosts} from "./MyPosts";
 
 
 let mapStateToProps = (state: RootReducerType) => {

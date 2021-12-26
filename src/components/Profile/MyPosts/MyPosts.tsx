@@ -1,6 +1,6 @@
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import React, {useCallback} from "react";
+import React from "react";
 import {PostsType} from "../../../Redux/profilePage-reducer";
 import {PostForm} from "../PostForm";
 
@@ -10,15 +10,15 @@ type MyPostsPropsType = {
     addPost: (post: string) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
-
+export const MyPosts = (props: MyPostsPropsType) => {
+    console.log("render")
     let postElement = props.posts.map((p) =>
         <Post message={p.message} likesCount={p.likesCount}/>)
 
 
-    let addNewPost = useCallback((newPostText: string) => {
+    let addNewPost = (newPostText: string) => {
         props.addPost(newPostText)
-    }, [props])
+    }
 
 
     return <div>
@@ -33,4 +33,3 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
 }
 
-export default MyPosts
