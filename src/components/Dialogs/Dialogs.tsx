@@ -1,7 +1,6 @@
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-
 import React, {useCallback} from "react";
 import {InitialDialogsPageStateType} from "../../Redux/dialogsPage-reducer";
 import {DialogsForm} from "./DialogsForm";
@@ -14,17 +13,19 @@ type DialogsType = {
 }
 
 
-export const Dialogs: React.FC<DialogsType> = (props) => {
-    let state = props.dialogsPage
+export const Dialogs: React.FC<DialogsType> = ({dialogsPage,
+                                                   updateNewMassageBody,
+                                                   sendMessage,
+                                                   isAuth,...props}) => {
 
+    let state = dialogsPage
 
     let dialogsElements = state.dialogs.map((d) => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     let messagesElements = state.messages.map((m) => <Message key={m.id} message={m.message}/>)
 
-
     let addNewMessage = useCallback((newMessageBody: string) => {
-        props.sendMessage(newMessageBody)
-    }, [props])
+        sendMessage(newMessageBody)
+    }, [sendMessage])
 
     /*    if (!props.isAuth) return <Redirect to={'/login'}/>*/
 

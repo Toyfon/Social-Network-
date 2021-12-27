@@ -30,9 +30,9 @@ export const ProfileStatusWithHooks: FC<ProfileStatusType> = React.memo(({status
         setLocalStatus(e.currentTarget.value)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setLocalStatus(status)
-    },[status])
+    }, [status])
 
     return <div>
         <div>
@@ -51,10 +51,7 @@ export const ProfileStatusWithHooks: FC<ProfileStatusType> = React.memo(({status
             </div>
             }
         </div>
-
-
     </div>
-
 })
 
 

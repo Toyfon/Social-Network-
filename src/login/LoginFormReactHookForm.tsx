@@ -32,8 +32,7 @@ export const LoginFormReactHookForm: FC<PropsType> = React.memo(() => {
     const [state, setState] = useState<string>('')
 
 
-
-    const {control, handleSubmit, formState: {errors}, } = useForm<FormType>({
+    const {control, handleSubmit, formState: {errors},} = useForm<FormType>({
         defaultValues: {
             email: '',
             password: '',
@@ -47,12 +46,11 @@ export const LoginFormReactHookForm: FC<PropsType> = React.memo(() => {
     }
     //
     useEffect(() => {
-            setState(errorMessage)
-        setTimeout (()=> {
+        setState(errorMessage)
+        setTimeout(() => {
             setState('')
         }, 3000)
-    },[errorMessage])
-
+    }, [errorMessage])
 
 
     if (isAuth) {
@@ -64,17 +62,15 @@ export const LoginFormReactHookForm: FC<PropsType> = React.memo(() => {
                 <Controller
                     control={control}
                     name="email"
-                    render={({field }) => (
+                    render={({field}) => (
                         <TextField {...field}
                                    label="Email"
                                    sx={{width: '300px', marginBottom: '10px',}}
                                    error={!!errors?.email}
                                    helperText={errors?.email ? errors.email.message : null}
-                                   //inputRef={ref}
                         />
                     )}
                 />
-
                 <Controller
                     control={control}
                     name="password"

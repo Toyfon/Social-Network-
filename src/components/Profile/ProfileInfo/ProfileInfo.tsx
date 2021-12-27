@@ -13,7 +13,6 @@ type ProfileInfoPropsType = {
     updateStatus: (status:string) => void
 }
 
-
 const ProfileInfo = ({profile,status,updateStatus}: ProfileInfoPropsType) => {
 
     if (!profile) {
@@ -21,10 +20,6 @@ const ProfileInfo = ({profile,status,updateStatus}: ProfileInfoPropsType) => {
     }
     return (
         <div>
-           {/* <div className={s.profile}>
-                <img
-                    src='https://source.unsplash.com/1600x900/?nature,water' alt='water'/>
-            </div>*/}
             <div className={s.descriptionBlock}>
                 <img src={profile.photos.large !== null ? profile.photos.large : userPhoto} alt='UserPhoto'/>
                 <div> {profile.contacts.github}</div>

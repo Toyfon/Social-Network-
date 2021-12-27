@@ -41,7 +41,7 @@ export type ThunkType = ThunkAction<void, // Return type of the thunk function
 
 
 //ThunkCreator
-export const initializeApp = (): ThunkType => (dispatch: Dispatch) => {
+export const initializeApp = (): ThunkType =>  (dispatch: Dispatch) => {
     //@ts-ignore
     let promise = dispatch(getAuthUserData())
     promise.then(() => {

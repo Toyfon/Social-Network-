@@ -1,9 +1,9 @@
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = 'SET_USER_PROFILE'
-const SET_STATUS = 'SET_STATUS'
+const ADD_POST = "social_network/profile/ADD-POST";
+const SET_USER_PROFILE = 'social_network/profile/SET_USER_PROFILE'
+const SET_STATUS = 'social_network/profile/SET_STATUS'
 
 export type ProfileType = {
     userId: number
@@ -36,7 +36,7 @@ export type InitialProfilePageStateType = {
 }
 
 
- export let initialState: InitialProfilePageStateType = {
+export let initialState: InitialProfilePageStateType = {
     posts: [],
     profile: null,
     status: ""
@@ -78,23 +78,21 @@ export const setUserProfile = (profile: null | ProfileType) => ({type: SET_USER_
 export const setStatus = (status: string) => ({type: SET_STATUS, status} as const)
 
 //ThunkCreator
-export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getProfile(userId).then(response => {
-        dispatch(setUserProfile(response.data))
-    })
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(response.data))
 }
 
-export const getStatus = (userId: number) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId).then(response => {
-        dispatch(setStatus(response.data))
-    })
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
+    const response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data))
 }
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(setStatus(status))
-        }
-    })
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
+
 }
 
 export default profileReducer;

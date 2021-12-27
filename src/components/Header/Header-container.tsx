@@ -5,6 +5,7 @@ import {logout} from "../../Redux/auth-reducer";
 import {RootReducerType} from "../../Redux/redux-store";
 import {Preloader} from "../common/Preloader/Preloader";
 import {Result} from "../../api/api";
+import {getAuthSelector, getFetchingSelector, getLoginSelector} from "../../Redux/selectors/header-selectors";
 
 
 export type AuthType = {
@@ -14,7 +15,6 @@ export type AuthType = {
     logout: () => void
 }
 
-
 type AuthDataType = {
     id: number,
     email: string,
@@ -23,10 +23,7 @@ type AuthDataType = {
 
 export type AuthMeResponseType = Result<AuthDataType>
 
-
-
 class HeaderContainer extends React.Component<AuthType> {
-
 
     render() {
         return <>
@@ -38,11 +35,11 @@ class HeaderContainer extends React.Component<AuthType> {
 }
 
 const mapStateToProps = (state: RootReducerType) => ({
-    isAuth: state.auth.isAuth,
-    login: state.auth.login,
-    isFetching: state.auth.isFetching
+    isAuth: getAuthSelector(state),
+    login: getLoginSelector(state),
+    isFetching: getFetchingSelector(state)
 })
 
-export default connect(mapStateToProps, { logout})(HeaderContainer)
+export default connect(mapStateToProps, {logout})(HeaderContainer)
 
 

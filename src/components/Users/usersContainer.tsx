@@ -43,17 +43,14 @@ class UsersContainer extends React.Component<UsersType> {
         this.props.getUsers(currentPage, pageSize, filter)
     }
 
-
     onPageChanged = (pageNumber: number) => {
         const {pageSize, filter} = this.props
         this.props.getUsers(pageNumber, pageSize, filter)
     }
-
     onFilterChanged = (filter: FilterType) => {
         const {pageSize} = this.props
         this.props.getUsers(1, pageSize, filter)
     }
-
     render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}

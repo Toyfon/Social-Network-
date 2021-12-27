@@ -3,8 +3,6 @@ import {NavLink} from "react-router-dom";
 import React from "react";
 
 
-
-
 const Navbar = () => {
 
     return (
@@ -27,14 +25,10 @@ const Navbar = () => {
             <div className={s.item}>
                 <NavLink to="/users" activeClassName={s.activeLink}>Users</NavLink>
             </div>
-
-
             <div className={s.settings}>
                 <img src="https://img.icons8.com/offices/30/000000/settings.png" alt=""/>
                 <NavLink to="/settings" activeClassName={s.activeLink}>Settings</NavLink>
             </div>
-
-
         </nav>
     )
 }

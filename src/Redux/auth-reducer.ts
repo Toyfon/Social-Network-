@@ -74,28 +74,26 @@ export type ThunkType = ThunkAction<
     ActionsType // known types of actions that can be dispatched
     >
 
-export const login = (email: string, password: string, rememberMe: boolean):ThunkType => (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean):ThunkType => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    authAPI.login(email, password, rememberMe).then((response) => {
+    let response = await authAPI.login(email, password, rememberMe)
         dispatch(toggleIsFetching(false))
         if (response.data.resultCode === 0) {
-            dispatch(getAuthUserData())
+            await dispatch(getAuthUserData())
         } else {
             let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some Error"
             dispatch(showDataMessage(message))
         }
-    })
 }
 
 
-export const logout = ():ThunkType => (dispatch) => {
+export const logout = ():ThunkType => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    authAPI.logout().then((response) => {
+    let response = await authAPI.logout()
         dispatch(toggleIsFetching(false))
         if (response.data.resultCode === 0) {
             dispatch(setAuthUserDataAC(null,null,null,false))
         }
-    })
 }
 
 

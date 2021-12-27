@@ -15,7 +15,7 @@ let mapStateToProps = (state: RootReducerType) => {
 
 let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        sendMessage: (newMessageBody:string) => {
+        sendMessage: (newMessageBody: string) => {
             dispatch(sendMessageCreator(newMessageBody))
         }
     }

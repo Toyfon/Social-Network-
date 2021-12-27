@@ -10,16 +10,14 @@ type MyPostsPropsType = {
     addPost: (post: string) => void
 }
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = ({posts,addPost}: MyPostsPropsType) => {
     console.log("render")
-    let postElement = props.posts.map((p) =>
+    let postElement = posts.map((p) =>
         <Post message={p.message} likesCount={p.likesCount}/>)
 
-
     let addNewPost = (newPostText: string) => {
-        props.addPost(newPostText)
+        addPost(newPostText)
     }
-
 
     return <div>
         <div className={s.postBlock}>

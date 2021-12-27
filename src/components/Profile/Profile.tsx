@@ -1,7 +1,7 @@
 import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-import React from "react";
+import React, {FC} from "react";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../Redux/profilePage-reducer";
 
@@ -12,17 +12,15 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
 }
 
-const Profile = (props: ProfilePropsType) => {
+const Profile:FC<ProfilePropsType> = ({profile,status,updateStatus,...props}) => {
 
     return (
-
         <div className={s.profile}>
-            <ProfileInfo profile={props.profile}
-                         status={props.status}
-                         updateStatus={props.updateStatus}
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateStatus={updateStatus}
             />
             <MyPostsContainer/>
-
         </div>
     )
 }
