@@ -1,48 +1,41 @@
 import React, {FC} from "react";
 import {FilterType, UserType} from "../../Redux/users-reducer";
-import s from './users.module.css'
 import {User} from "./User";
 import {UsersSearchForm} from "./UsersSearchForm";
+import {Paginator} from "../common/Paginator/Paginator";
 
 
 type UsersType = {
     users: UserType[]
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    totalUsersCount: number
+    totalItemsCount: number
     pageSize: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     followingInProgress: number[]
-    onFilterChanged:(filter: FilterType)=> void
+    onFilterChanged: (filter: FilterType) => void
 }
 
 const Users: FC<UsersType> = ({
-                   users, follow, unfollow,
-                   totalUsersCount,
-                   pageSize, currentPage,
-                   onPageChanged, followingInProgress, onFilterChanged, ...props
-               }) => {
+                                  users, follow, unfollow,
+                                  totalItemsCount,
+                                  pageSize, currentPage,
+                                  onPageChanged, followingInProgress, onFilterChanged, ...props
+                              }) => {
 
-
-    let pagesCount = Math.ceil(totalUsersCount / pageSize);//Math.ceil округляет до целого числа в большую сторону
-
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
+    let portionSize = 10
 
     return <div>
         <UsersSearchForm onFilterChanged={onFilterChanged}/>
-        <div className={s.pagesNumber}>
-            {pages.map(p => {
-                return <span key={p} className={currentPage === p ? s.selectedStyle : ""}
-                             onClick={() => {
-                                 onPageChanged(p)
-                             }}>{p}</span>
-            })}
+        <div>
+            <Paginator pageSize={pageSize}
+                       currentPage={currentPage}
+                       onPageChanged={onPageChanged}
+                       totalItemsCount={totalItemsCount}
+                       portionSize={portionSize}/>
         </div>
+
         {
             users.map(u => <User user={u}
                                  followingInProgress={followingInProgress}

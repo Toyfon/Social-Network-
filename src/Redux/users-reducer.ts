@@ -17,7 +17,7 @@ export type UserType = any
 let initialState = {
     users: [] as Array<UserType>,
     pageSize: 10,
-    totalUsersCount: 100,
+    totalItemsCount: 100,
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<number>,
@@ -59,7 +59,7 @@ const usersReducer = (state = initialState, action: ActionsType): InitialUsersPa
             return {...state, currentPage: action.currentPage}
         }
         case SET_TOTAL_USER_COUNT: {
-            return {...state, totalUsersCount: action.count}
+            return {...state, totalItemsCount: action.count}
         }
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
@@ -118,7 +118,7 @@ export const requestUsers = (page: number, pageSize: number, filter: FilterType)
         let data = await usersAPI.getUsers(page, pageSize, filter.term, filter.friend)
         dispatch(toggleIsFetching(false))
         dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount = 400))
+        dispatch(setTotalUsersCount(data.totalCount))
 
     }
 }
