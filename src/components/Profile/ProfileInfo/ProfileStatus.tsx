@@ -26,7 +26,7 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
 
         })
     }
-    deactivateEditMode = () => {
+     deactivateEditMode = () => {
         this.setState({
             editMode: false
         });
@@ -39,10 +39,10 @@ class ProfileStatus extends React.Component<ProfileStatusType> {
     }
 
     componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<{}>) {
-        if(prevProps.status !== this.props.status)
-        this.setState({
-            status: this.props.status
-        })
+        if (prevProps.status !== this.props.status)
+            this.setState({
+                status: this.props.status
+            })
     }
 
     render() {
