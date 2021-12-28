@@ -6,7 +6,6 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import React from "react";
 import UsersContainer from "./components/Users/usersContainer";
-
 import HeaderContainer from "./components/Header/Header-container";
 import {LoginFormReactHookForm} from "./login/LoginFormReactHookForm";
 import {connect} from "react-redux";
@@ -43,7 +42,7 @@ class App extends React.Component<AppType> {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           // Lazy loading Components
+                        // Lazy loading Components
                            render={withSuspense(DialogsContainer)}/>
                     <Route path='/profile/:userId?'
                            render={withSuspense(ProfileContainer)}/>
