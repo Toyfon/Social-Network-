@@ -38,7 +38,7 @@ export const ProfileStatusWithHooks: FC<ProfileStatusType> = React.memo(({status
         <div>
             {!editMode &&
             <div>
-                <span onDoubleClick={activateMode}>{status || 'no status'}</span>
+               Status: <span onDoubleClick={activateMode}>{status || 'no status'}</span>
             </div>
             }
             {editMode &&

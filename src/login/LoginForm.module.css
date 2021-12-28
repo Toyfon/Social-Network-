@@ -11,3 +11,8 @@
     font-size: 16px;
     font-style: italic;
 }
+
+.captcha img{
+    height: 80px;
+    width: 300px;
+}

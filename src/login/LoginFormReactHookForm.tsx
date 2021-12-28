@@ -15,6 +15,7 @@ type FormType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 
 type PropsType = {}
@@ -27,6 +28,8 @@ export const LoginFormReactHookForm: FC<PropsType> = React.memo(() => {
 
     const errorMessage = useSelector<RootReducerType, string>(state => state.auth.errorMessage)
     const isAuth = useSelector<RootReducerType, boolean>(state => state.auth.isAuth)
+    const captchaUrl = useSelector<RootReducerType, string | null>(state => state.auth.captchaUrl)
+
     const dispatch = useDispatch()
 
     const [state, setState] = useState<string>('')
@@ -36,13 +39,14 @@ export const LoginFormReactHookForm: FC<PropsType> = React.memo(() => {
         defaultValues: {
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
+            captcha: ''
         },
         resolver: yupResolver(schema)
     })
     const onSubmit = (values: FormType) => {
-        const {email, password, rememberMe} = values
-        dispatch(login(email, password, rememberMe))
+        const {email, password, rememberMe, captcha} = values
+        dispatch(login(email, password, rememberMe, captcha))
     }
     //
     useEffect(() => {
@@ -103,6 +107,19 @@ export const LoginFormReactHookForm: FC<PropsType> = React.memo(() => {
                     )}
                 />
                 <div>
+                    <div className={s.captcha}>{captchaUrl && <img src={captchaUrl} alt={'captcha'}/>}</div>
+                    <div>{captchaUrl &&
+                    <Controller
+                        control={control}
+                        name="captcha"
+                        render={({field}) => (
+                            <TextField {...field}
+                                       type={'text'}
+                                       label="enter symbols from image"
+                                       sx={{width: '300px', marginBottom: '10px'}}
+                            />
+                        )}
+                    />}</div>
                     <div className={s.errMessage}>{state}</div>
                 </div>
 

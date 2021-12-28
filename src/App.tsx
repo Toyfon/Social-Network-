@@ -50,7 +50,7 @@ class App extends React.Component<AppType> {
                     <Route path='/music' render={() => <Music/>}/>
                     <Route path='/settings' render={() => <Settings/>}/>
                     <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/login' render={() => <LoginFormReactHookForm/>}/>
+                    <Route path='/login' render={() => <LoginFormReactHookForm />}/>
 
                 </div>
             </div>
@@ -61,7 +61,8 @@ class App extends React.Component<AppType> {
 
 
 const mapStateToProps = (state: RootReducerType) => ({
-    initialized: state.app.initialized
+    initialized: state.app.initialized,
+
 })
 
 export default compose<React.ComponentType>(

@@ -43,7 +43,7 @@ export const Login: FC<PropsType> = () => {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             const {email, password, rememberMe} = values
-            dispatch(login(email, password, rememberMe))
+            //dispatch(login(email, password, rememberMe))
 
         },
     });

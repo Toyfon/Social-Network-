@@ -35,6 +35,7 @@ type OwnPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsT
 class ProfileContainer extends React.Component<OwnPropsType> {
 
     refreshProfile() {
+        console.log('refresh profile')
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = String(this.props.id!)
@@ -51,10 +52,9 @@ class ProfileContainer extends React.Component<OwnPropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<OwnPropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        // eslint-disable-next-line no-self-compare
-        // if (this.props.match.params.userId !== this.props.match.params.userId) {
+        if (this.props.match.params.userId !== this.props.match.params.userId) {
         this.refreshProfile()
-        //}
+        }
     }
 
     render() {
