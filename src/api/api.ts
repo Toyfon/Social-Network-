@@ -20,8 +20,6 @@ export type Result<T> = {
     data: T
 }
 
-
-
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10, term = '', friend: null | boolean = null) {
         return instance.get<UserType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null ? '': `&friend=${friend}`)) // get запрос (типизируем только AxiosResponse)
@@ -49,8 +47,19 @@ export const profileAPI = {
         return instance.put<statusResponseType>(`profile/status`, {
             status:status
         });
+    },
+    savePhoto(file: File) {
+        const formData = new FormData()
+        formData.append('image', file)
+        return instance.put(`profile/photo`,formData, {
+            headers: {
+                'Content-Type':'multipart/form-data'
+            }
+        } );
     }
 }
+
+
 export const authAPI = {
     me() {
         return instance.get<AuthMeResponseType>(`auth/me`)

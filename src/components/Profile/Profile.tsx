@@ -10,15 +10,19 @@ type ProfilePropsType = {
     profile: null | ProfileType
     status: string
     updateStatus: (status: string) => void
+    isOwner:boolean
+    savePhoto: (photo: File | null) => void
 }
 
-const Profile:FC<ProfilePropsType> = ({profile,status,updateStatus,...props}) => {
+const Profile:FC<ProfilePropsType> = ({profile,status,updateStatus,isOwner,savePhoto,...props}) => {
 
     return (
         <div className={s.profile}>
             <ProfileInfo profile={profile}
                          status={status}
                          updateStatus={updateStatus}
+                         isOwner={isOwner}
+                         savePhoto={savePhoto}
             />
             <MyPostsContainer/>
         </div>
